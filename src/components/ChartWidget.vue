@@ -133,11 +133,23 @@ export default {
 			}
 			return available
     }
-  },
+	},
+	created() {
+		window.addEventListener("resize", this.myResizeEventHandler);
+	},
+	unmounted() {
+		window.removeEventListener("resize", this.myResizeEventHandler);
+	},
   mounted () {
 		this.init()
   },
   methods: {
+		myResizeEventHandler(e) {
+			// your code for handling resize...
+			console.log(e)
+			let container = document.querySelector('#widget');
+			this.chart.resize(container.offsetWidth, 600);
+		},
 		init () {
 			let container = document.querySelector('#widget');
 			this.chart = createChart(container, 
